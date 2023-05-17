@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const UserModel = require('../server/models/User');
+const PostModel = require('./models/Posts');
 const cors = require('cors');
 
 // https://preview.colorlib.com/theme/stories/
@@ -61,6 +62,40 @@ app.post('/login',async (req,res)=> {
      })
 })
 
+
+
+app.post('/addpost',async (req,res) => {
+    // const {author, title,image,summary,location} = req.body
+
+    const newpost = new PostModel({
+        author:req.body.author,
+        title:req.body.title,
+        image:req.body.image,
+        summary:req.body.summary,
+        location:req.body.location
+    })
+    await newpost.save()
+ 
+    res.send({message:"posted successfully"})
+
+})
+
+app.get('/posts', async (req,res) => {
+    const posts = await PostModel.find({})
+     res.json({
+         posts,
+     })
+})
+
+
+app.get('/posts/:id', async (req,res) => {
+     const id = req.params.id
+  
+     const singlePost = await PostModel.findById(id)
+
+       res.json({singlePost: singlePost})   
+ 
+})
 
 
 app.listen(PORT,() => {
