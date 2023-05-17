@@ -45,6 +45,24 @@ app.post("/register",async (req,res) => {
 
 
 
+app.post('/login',async (req,res)=> {
+     UserModel.findOne({email: req.body.email}).then((userData) =>{
+
+         if(!userData){
+            res.send({ message:"wrong email"})
+         }
+
+
+        if(req.body.password === userData.password){
+            res.send({message:"login Successfull",status:200})
+        }else {
+            res.send({message:"login Failure"})
+        }
+     })
+})
+
+
+
 app.listen(PORT,() => {
     console.log("Running on port 4000")
 })
