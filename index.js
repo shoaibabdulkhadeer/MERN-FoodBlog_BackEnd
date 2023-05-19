@@ -66,7 +66,6 @@ app.post('/login',async (req,res)=> {
 
 app.post('/addpost',async (req,res) => {
     // const {author, title,image,summary,location} = req.body
-
     const newpost = new PostModel({
         author:req.body.author,
         title:req.body.title,
@@ -92,7 +91,6 @@ app.get('/posts/:id', async (req,res) => {
      const id = req.params.id
   
      const singlePost = await PostModel.findById(id)
-
        res.json({singlePost: singlePost})   
  
 })
@@ -101,6 +99,5 @@ app.get('/posts/:id', async (req,res) => {
 app.listen(PORT,() => {
     console.log("Running on port 4000")
 })
-
 
 
