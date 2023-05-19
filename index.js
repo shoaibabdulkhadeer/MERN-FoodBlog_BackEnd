@@ -63,6 +63,10 @@ app.post('/login',async (req,res)=> {
 })
 
 
+app.get('/userlist', async(req,res) => {
+   const allusers = await UserModel.find({})
+   res.json(allusers)
+})
 
 app.post('/addpost',async (req,res) => {
     // const {author, title,image,summary,location} = req.body
